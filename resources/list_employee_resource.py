@@ -1,5 +1,5 @@
 from flask_restful import Resource
-from model.employees import Employee
+from model.employee import Employee
 
 
 class EmployeeInfo(Resource):

@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_restful import Api
-from resources.employee import EmployeeInfo
+from resources.list_employee_resource import EmployeeInfo
 from extension import db
 
 app = Flask(__name__)
