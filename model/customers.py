@@ -26,3 +26,17 @@ class Customer(db.Model):
             data[key] = value
         data.pop('_sa_instance_state')
         return data
+
+
+class CustomerDemographics(db.Model):
+    __tablename__ = 'customer_demographics'
+    customer_type_id = db.Column(db.LargeBinary, Primary_key=True, nullable=False)
+    customer_desc = db.Column(db.Text)
+
+
+class CustomerCustomerDemo(db.Model):
+    __tablename__ = 'customer_customer_demo'
+    customer_id = db.Column(db.LargeBinary, db.ForeignKey('customer_id'), nullable=False)
+    customer_type_id = db.Column(db.LargeBinary, db.ForeignKey('customer_type_id'), nullable=False)
+
+
