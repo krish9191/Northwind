@@ -6,6 +6,7 @@ from resources.list_orders_resource import OrderInfo
 from resources.list_products_resource import ProductInfo
 from resources.list_categories_resource import CategoryInfo
 from resources.list_suppliers_resource import SupplierInfo
+from resources.list_shippers_resource import ShipperInfo
 from extension import db
 
 app = Flask(__name__)
@@ -19,6 +20,7 @@ api.add_resource(ProductInfo, '/products/<id>')
 api.add_resource(OrderInfo, '/orders/<id>')
 api.add_resource(CategoryInfo, '/categories/<id>')
 api.add_resource(SupplierInfo, '/suppliers/<id>')
+api.add_resource(ShipperInfo, '/shippers/<id>')
 
 if __name__ == '__main__':
     db.init_app(app)
