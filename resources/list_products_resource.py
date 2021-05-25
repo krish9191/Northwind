@@ -1,5 +1,5 @@
 from flask_restful import Resource
-from model.product import Product
+from model.products import Product
 
 
 class ProductInfo(Resource):

@@ -1,5 +1,5 @@
 from flask_restful import Resource
-from model.order import Order
+from model.orders import Order
 
 
 class OrderInfo(Resource):

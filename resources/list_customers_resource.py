@@ -1,5 +1,5 @@
 from flask_restful import Resource
-from model.customer import Customer
+from model.customers import Customer
 
 
 class CustomerInfo(Resource):
