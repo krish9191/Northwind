@@ -40,3 +40,9 @@ class Employee(db.Model):
                 data[key] = value
         data.pop('_sa_instance_state')
         return data
+
+
+class EmployeeTerritories(db.Model):
+    __tablename__ = 'employee_territories'
+    employee_id = db.Column(db.SmallInteger, db.ForeignKey('employee_id'), nullable=False)
+    territory_id = db.Column(db.String, db.ForeignKey('territory_id'), nullable=False)

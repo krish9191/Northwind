@@ -1,6 +1,5 @@
 from flask_restful import Resource
-from model.customer import Customer
-from flask import request
+from model.customers import Customer
 
 
 class CustomerInfo(Resource):
