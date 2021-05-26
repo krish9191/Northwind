@@ -2,6 +2,13 @@ from extension import db
 from manager import to_str_date, byte_array_to_json
 from datetime import date
 
+from model.territories import Territories
+
+employee_territory = db.Table(
+    'employee_territories',
+    db.Column('employee_id', db.SmallInteger, db.ForeignKey('employees.employee_id'), nullable=False),
+    db.Column('territory_id', db.String, db.ForeignKey('territories.territory_id'), nullable=False))
+
 
 class Employee(db.Model):
     __tablename__ = 'employees'
@@ -23,6 +30,8 @@ class Employee(db.Model):
     notes = db.Column(db.Text, nullable=False)
     reports_to = db.Column(db.SmallInteger, nullable=False)
     photo_path = db.Column(db.String, nullable=False)
+    employee_territory = db.relationship(
+        Territories, secondary=employee_territory, backref=db.backref('employees', lazy='select'))
 
     @classmethod
     def find_by_id(cls, employee_id):
@@ -40,9 +49,3 @@ class Employee(db.Model):
                 data[key] = value
         data.pop('_sa_instance_state')
         return data
-
-
-class EmployeeTerritories(db.Model):
-    __tablename__ = 'employee_territories'
-    employee_id = db.Column(db.SmallInteger, db.ForeignKey('employee_id'), nullable=False)
-    territory_id = db.Column(db.String, db.ForeignKey('territory_id'), nullable=False)
