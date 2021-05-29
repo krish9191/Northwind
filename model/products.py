@@ -5,8 +5,8 @@ class Product(db.Model):
     __tablename__ = 'products'
     product_id = db.Column(db.SmallInteger, primary_key=True, nullable=False)
     product_name = db.Column(db.String(40), nullable=False)
-    supplier_id = db.Column(db.SmallInteger, db.ForeignKey('supplier_id'))
-    category_id = db.Column(db.SmallInteger, db.ForeignKey('category_id'))
+    supplier_id = db.Column(db.SmallInteger, db.ForeignKey('suppliers.supplier_id'))
+    category_id = db.Column(db.SmallInteger, db.ForeignKey('categories.category_id'))
     quantity_per_unit = db.Column(db.String(20))
     unit_price = db.Column(db.Float(15))
     units_in_stock = db.Column(db.SmallInteger)
@@ -25,4 +25,3 @@ class Product(db.Model):
             data[key] = value
         data.pop('_sa_instance_state')
         return data
-

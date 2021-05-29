@@ -1,8 +1,8 @@
 from extension import db
 from manager import to_str_date, byte_array_to_json
 from datetime import date
-
-from model.territories import Territories
+from model.orders import Order
+from model.regions import Territory
 
 employee_territory = db.Table(
     'employee_territories',
@@ -31,7 +31,8 @@ class Employee(db.Model):
     reports_to = db.Column(db.SmallInteger, nullable=False)
     photo_path = db.Column(db.String, nullable=False)
     employee_territory = db.relationship(
-        Territories, secondary=employee_territory, backref=db.backref('employees', lazy='select'))
+        Territory, secondary=employee_territory, backref='employees', lazy='select')
+    orders = db.relationship(Order, backref='employees', lazy='select')
 
     @classmethod
     def find_by_id(cls, employee_id):

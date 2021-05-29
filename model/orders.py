@@ -6,12 +6,12 @@ from manager import byte_array_to_json, to_str_date
 class Order(db.Model):
     __tablename__ = 'orders'
     order_id = db.Column(db.SmallInteger, primary_key=True, nullable=False)
-    customer_id = db.Column(db.String, db.ForeignKey('customer_id'))
-    employee_id = db.Column(db.SmallInteger, db.ForeignKey('employee_id'))
+    customer_id = db.Column(db.String, db.ForeignKey('customers.customer_id'))
+    employee_id = db.Column(db.SmallInteger, db.ForeignKey('employees.employee_id'))
     order_date = db.Column(db.Date)
     required_date = db.Column(db.Date)
     shipped_date = db.Column(db.Date)
-    ship_via = db.Column(db.SmallInteger)
+    ship_via = db.Column(db.SmallInteger, db.ForeignKey('shippers.shipper_id'))
     freight = db.Column(db.Float)
     ship_name = db.Column(db.String(40))
     ship_address = db.Column(db.String(60))
