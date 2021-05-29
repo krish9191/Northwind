@@ -5,7 +5,7 @@ from model.products import Product
 
 class Category(db.Model):
     __tablename__ = 'categories'
-    category_id = db.Column(db.SmallInteger, primary_key=True, nullable=False)
+    category_id = db.Column(db.SmallInteger, primary_key=True)
     category_name = db.Column(db.String(15), nullable=False)
     description = db.Column(db.Text)
     picture = db.Column(db.LargeBinary)

@@ -3,7 +3,7 @@ from extension import db
 
 class Product(db.Model):
     __tablename__ = 'products'
-    product_id = db.Column(db.SmallInteger, primary_key=True, nullable=False)
+    product_id = db.Column(db.SmallInteger, primary_key=True)
     product_name = db.Column(db.String(40), nullable=False)
     supplier_id = db.Column(db.SmallInteger, db.ForeignKey('suppliers.supplier_id'))
     category_id = db.Column(db.SmallInteger, db.ForeignKey('categories.category_id'))

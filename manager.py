@@ -14,16 +14,14 @@ def byte_array_to_json(byte_array):
     return new_array
 
 
-def add_region(id, description):
-    region_id = id
+def add_region(description):
     region_description = description
-    region = Region(region_id, region_description)
-    db.session.add(region)
+    region = Region(region_description)
+    id = region.region_id
+    db.session.add(region, id)
     db.session.commit()
     return jsonify(
-        region_id=id,
         region_description=description
-
     )
 
 

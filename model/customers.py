@@ -17,7 +17,7 @@ class CustomerDemographics(db.Model):
 
 class Customer(db.Model):
     __tablename__ = 'customers'
-    customer_id = db.Column(db.String, primary_key=True, nullable=False)
+    customer_id = db.Column(db.String, primary_key=True)
     company_name = db.Column(db.String(40), nullable=False)
     contact_name = db.Column(db.String(30))
     contact_title = db.Column(db.String(30))

@@ -12,7 +12,7 @@ employee_territory = db.Table(
 
 class Employee(db.Model):
     __tablename__ = 'employees'
-    employee_id = db.Column(db.SmallInteger, primary_key=True, nullable=False)
+    employee_id = db.Column(db.SmallInteger, primary_key=True)
     last_name = db.Column(db.String, nullable=False)
     first_name = db.Column(db.String, nullable=False)
     title = db.Column(db.String, nullable=False)

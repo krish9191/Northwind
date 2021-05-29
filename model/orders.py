@@ -5,7 +5,7 @@ from manager import byte_array_to_json, to_str_date
 
 class Order(db.Model):
     __tablename__ = 'orders'
-    order_id = db.Column(db.SmallInteger, primary_key=True, nullable=False)
+    order_id = db.Column(db.SmallInteger, primary_key=True)
     customer_id = db.Column(db.String, db.ForeignKey('customers.customer_id'))
     employee_id = db.Column(db.SmallInteger, db.ForeignKey('employees.employee_id'))
     order_date = db.Column(db.Date)
