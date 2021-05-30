@@ -1,11 +1,13 @@
 from extension import db
+from model.orders import Order
 
 
 class Shipper(db.Model):
     __tablename__ = 'shippers'
-    shipper_id = db.Column(db.SmallInteger, primary_key=True, nullable=False)
+    shipper_id = db.Column(db.SmallInteger, primary_key=True)
     company_name = db.Column(db.String(40), nullable=False)
     phone = db.Column(db.String(24))
+    orders = db.relationship(Order, backref='shippers', lazy='select')
 
     @classmethod
     def find_by_id(cls, shipper_id):

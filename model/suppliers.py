@@ -1,9 +1,10 @@
 from extension import db
+from model.products import Product
 
 
 class Supplier(db.Model):
     __tablename__ = 'suppliers'
-    supplier_id = db.Column(db.SmallInteger, primary_key=True, nullable=False)
+    supplier_id = db.Column(db.SmallInteger, primary_key=True)
     company_name = db.Column(db.String(40), nullable=False)
     contact_name = db.Column(db.String(30))
     contact_title = db.Column(db.String(30))
@@ -15,6 +16,7 @@ class Supplier(db.Model):
     phone = db.Column(db.String(24))
     fax = db.Column(db.String(24))
     homepage = db.Column(db.Text)
+    suppliers = db.relationship(Product, backref='suppliers', lazy='select')
 
     @classmethod
     def find_by_id(cls, supplier_id):
