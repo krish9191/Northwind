@@ -66,3 +66,13 @@ def list_customer_order_by_employee(employee_id):
         result_in_list.append(data)
     return result_in_list
 
+
+def count_customer_per_countries():
+    query = db.session.query(db.func.count(Customer.country), Customer.country).group_by(Customer.country).all()
+    result = []
+    for row in query:
+        data = dict()
+        data["number_of_customers"] = row[0]
+        data["name_of_country"] = row[1]
+        result.append(data)
+    return result
