@@ -1,5 +1,5 @@
 from extension import db
-from manager import byte_array_to_json
+from functions import byte_array_to_json
 from model.products import Product
 
 

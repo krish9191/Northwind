@@ -1,6 +1,6 @@
 from extension import db
 from datetime import date
-from manager import byte_array_to_json, to_str_date
+from functions import byte_array_to_json, to_str_date
 
 
 class Order(db.Model):

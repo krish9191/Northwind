@@ -1,9 +1,8 @@
-from flask import request
+from flask_restful import Resource
 from manager import list_customer_order_by_employee
 
 
-class ListCustomerOrderByEmployee:
-    def get(self):
-        data = request.get_json()
-        return list_customer_order_by_employee(data['employee_id'])
+class ListCustomerOrderByEmployee(Resource):
+    def get(self, id):
+        return list_customer_order_by_employee(id)
 

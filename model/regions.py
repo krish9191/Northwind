@@ -1,6 +1,6 @@
 import uuid
-
 from extension import db
+from model.id_generator import IdGenerator
 
 
 class Territory(db.Model):
@@ -14,7 +14,7 @@ class Territory(db.Model):
         self.territory_description = description
 
 
-class Region(db.Model):
+class Region(db.Model, IdGenerator):
     __tablename__ = 'region'
     region_id = db.Column(db.SmallInteger, primary_key=True)
     region_description = db.Column(db.String(40), nullable=False)

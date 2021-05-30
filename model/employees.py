@@ -1,5 +1,5 @@
 from extension import db
-from manager import to_str_date, byte_array_to_json
+from functions import to_str_date, byte_array_to_json
 from datetime import date
 from model.orders import Order
 from model.regions import Territory
