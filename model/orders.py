@@ -1,6 +1,7 @@
 from extension import db
 from datetime import date
 from functions import byte_array_to_json, to_str_date
+from model.order_details import OrderDetail
 
 
 class Order(db.Model):
@@ -19,6 +20,7 @@ class Order(db.Model):
     ship_region = db.Column(db.String)
     ship_postal_code = db.Column(db.String(10))
     ship_country = db.Column(db.String(15))
+    order_detail = db.relationship(OrderDetail, backref='orders', lazy='select')
 
     @classmethod
     def find_by_id(cls, order_id):
@@ -36,3 +38,6 @@ class Order(db.Model):
                 data[key] = value
         data.pop('_sa_instance_state')
         return data
+
+
+

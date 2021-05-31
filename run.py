@@ -12,6 +12,7 @@ from resources.add_territory_resource import AddTerritory
 from resources.customer_and_order_by_employees import CustomerAndOrderByEmployee
 from resources.customer_per_countries import CustomerPerCountry
 from resources.list_of_orders_by_country import OrderByCountry
+from resources.order_details_resource import OrdersDetail
 from extension import db
 
 app = Flask(__name__)
@@ -31,6 +32,7 @@ api.add_resource(AddTerritory, '/territories/<id>')
 api.add_resource(OrderByCountry, '/order_by_country')
 api.add_resource(CustomerAndOrderByEmployee, '/list_customer_order/<id>')
 api.add_resource(CustomerPerCountry, '/customer_per_country')
+api.add_resource(OrdersDetail, '/order_detail/<id>')
 
 
 if __name__ == '__main__':

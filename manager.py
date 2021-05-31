@@ -1,6 +1,7 @@
 from extension import db
 from model.customers import Customer
 from model.employees import Employee
+from model.order_details import OrderDetail
 from model.orders import Order
 from model.regions import Region, Territory
 from flask import jsonify, request
@@ -32,6 +33,21 @@ def add_territory(region_id):
     )
 
 
+def get_order_details(order_id):
+    orders = db.session.query(OrderDetail.product_id, OrderDetail.unit_price, OrderDetail.quantity,
+                              OrderDetail.discount).join(Order).filter(order_id == Order.order_id).all()
+
+    result = []
+    for order in orders:
+        data = dict()
+        data['product_id'] = order.product_id
+        data['unit_price'] = order.unit_price
+        data['quantity'] = order.quantity
+        data['discount'] = order.discount
+        result.append(data)
+    return result
+
+
 def total_count_orders_by_country():
     order = db.session.query(db.func.count(Order.ship_country), Order.ship_country).group_by(
         Order.ship_country).all()
@@ -50,11 +66,10 @@ def list_customer_order_by_employee(employee_id):
         return {'error': 'id not found'}, 404
 
     query = db.session.query(Employee.last_name, Employee.first_name, Employee.region, Customer.contact_name,
-                             Customer.company_name, Order.ship_city, Order.ship_city)
-    query = query.join(Employee).join(Customer)
-    results = query.filter(Employee.employee_id == employee_id).all()
+                             Customer.company_name, Order.ship_city, Order.ship_city).join(Employee).join(
+        Customer).filter(Employee.employee_id == employee_id).all()
     result_in_list = []
-    for row in results:
+    for row in query:
         data = dict()
         data['lastname'] = row.last_name
         data['firstname'] = row.first_name
@@ -76,3 +91,5 @@ def count_customer_per_countries():
         data["name_of_country"] = row[1]
         result.append(data)
     return result
+
+
