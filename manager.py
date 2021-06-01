@@ -48,7 +48,7 @@ def get_order_details(order_id):
     return result
 
 
-def total_count_orders_by_country():
+def count_orders_by_country():
     order = db.session.query(db.func.count(Order.ship_country), Order.ship_country).group_by(
         Order.ship_country).all()
     result = []
@@ -60,7 +60,7 @@ def total_count_orders_by_country():
     return result
 
 
-def list_customer_order_by_employee(employee_id):
+def get_customer_and_order_by_employee_id(employee_id):
     employee = Employee.find_by_id(employee_id)
     if employee is None:
         return {'error': 'id not found'}, 404
@@ -93,9 +93,9 @@ def count_customer_per_countries():
     return result
 
 
-def calculate_revenue_per_year():
+def calculate_revenue_per_year(start_year, end_year):
     query = db.session.query(db.func.sum(OrderDetail.quantity * (OrderDetail.unit_price - OrderDetail.discount * 100)))\
-        .join(Order).filter(Order.order_date.between('1997-01-01', "1998-01-01")).one()
+        .join(Order).filter(Order.order_date.between(f'"{start_year}-01-01"', f'"{end_year}-01-01"')).one()
 
     return jsonify(
         total_revenue=format(query[0], '.2f')
