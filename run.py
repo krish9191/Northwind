@@ -1,16 +1,16 @@
 from flask import Flask
 from flask_restful import Api
-from resources.list_employees_resource import EmployeeInfo
-from resources.list_customers_resource import CustomerInfo
-from resources.list_orders_resource import OrderInfo
-from resources.list_products_resource import ProductInfo
-from resources.list_categories_resource import CategoryInfo
-from resources.list_suppliers_resource import SupplierInfo
-from resources.list_shippers_resource import ShipperInfo
-from resources.add_regions_resource import AddRegion
-from resources.add_territory_resource import AddTerritory
-from resources.list_of_orders_by_country import OrderByCountry
-from resources.list_customer_order_by_employees import ListCustomerOrderByEmployee
+from resources.employee_resource import EmployeeInfo, CustomerAndOrderByEmployeeId
+from resources.customer_resource import CustomerInfo, CustomerPerCountry
+from resources.order_resource import OrderInfo,  OrderByCountry
+from resources.product_resource import ProductInfo
+from resources.category_resource import CategoryInfo
+from resources.supplier_resource import SupplierInfo
+from resources.shipper_resource import ShipperInfo
+from resources.region_resource import AddRegion
+from resources.territory_resource import AddTerritory
+from resources.order_detail_resource import OrdersDetail
+from resources.revenue_resource import RevenuePerYear
 from extension import db
 
 app = Flask(__name__)
@@ -28,7 +28,11 @@ api.add_resource(ShipperInfo, '/shippers/<id>')
 api.add_resource(AddRegion, '/regions')
 api.add_resource(AddTerritory, '/territories/<id>')
 api.add_resource(OrderByCountry, '/order_by_country')
-api.add_resource(ListCustomerOrderByEmployee, '/list_customer_order/<id>')
+api.add_resource(CustomerAndOrderByEmployeeId, '/customer_and_order_by_employee_id/<id>')
+api.add_resource(CustomerPerCountry, '/customer_per_country')
+api.add_resource(OrdersDetail, '/order_details/<id>')
+api.add_resource(RevenuePerYear, '/revenue_per_year')
+
 
 if __name__ == '__main__':
     db.init_app(app)

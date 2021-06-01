@@ -1,6 +1,7 @@
 from extension import db
 from model.customers import Customer
 from model.employees import Employee
+from model.order_details import OrderDetail
 from model.orders import Order
 from model.regions import Region, Territory
 from flask import jsonify, request
@@ -32,7 +33,22 @@ def add_territory(region_id):
     )
 
 
-def total_count_orders_by_country():
+def get_order_details(order_id):
+    orders = db.session.query(OrderDetail.product_id, OrderDetail.unit_price, OrderDetail.quantity,
+                              OrderDetail.discount).join(Order).filter(order_id == Order.order_id).all()
+
+    result = []
+    for order in orders:
+        data = dict()
+        data['product_id'] = order.product_id
+        data['unit_price'] = order.unit_price
+        data['quantity'] = order.quantity
+        data['discount'] = order.discount
+        result.append(data)
+    return result
+
+
+def count_orders_by_country():
     order = db.session.query(db.func.count(Order.ship_country), Order.ship_country).group_by(
         Order.ship_country).all()
     result = []
@@ -44,17 +60,16 @@ def total_count_orders_by_country():
     return result
 
 
-def list_customer_order_by_employee(employee_id):
+def get_customer_and_order_by_employee_id(employee_id):
     employee = Employee.find_by_id(employee_id)
     if employee is None:
         return {'error': 'id not found'}, 404
 
     query = db.session.query(Employee.last_name, Employee.first_name, Employee.region, Customer.contact_name,
-                             Customer.company_name, Order.ship_city, Order.ship_city)
-    query = query.join(Employee).join(Customer)
-    results = query.filter(Employee.employee_id == employee_id).all()
+                             Customer.company_name, Order.ship_city, Order.ship_city).join(Employee).join(
+        Customer).filter(Employee.employee_id == employee_id).all()
     result_in_list = []
-    for row in results:
+    for row in query:
         data = dict()
         data['lastname'] = row.last_name
         data['firstname'] = row.first_name
@@ -66,3 +81,23 @@ def list_customer_order_by_employee(employee_id):
         result_in_list.append(data)
     return result_in_list
 
+
+def count_customer_per_countries():
+    query = db.session.query(db.func.count(Customer.country), Customer.country).group_by(Customer.country).all()
+    result = []
+    for row in query:
+        data = dict()
+        data["number_of_customers"] = row[0]
+        data["name_of_country"] = row[1]
+        result.append(data)
+    return result
+
+
+def calculate_revenue_per_year(start_year, end_year):
+    query = db.session.query(db.func.sum(OrderDetail.quantity * (OrderDetail.unit_price - OrderDetail.discount * 100)))\
+        .join(Order).filter(Order.order_date.between(f'"{start_year}-01-01"', f'"{end_year}-01-01"')).one()
+
+    return jsonify(
+        total_revenue=format(query[0], '.2f')
+
+    )

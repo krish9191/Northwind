@@ -21,7 +21,8 @@ class Region(db.Model, IdGenerator):
     territories = db.relationship(Territory, backref='regions', lazy='select')
 
     def __init__(self, description):
-        self.region_id = id_increment()
+        IdGenerator.__init__(self, id="region_id")
+        self.region_id = self.generate_id(Region.region_id)
         self.region_description = description
 
     @classmethod
@@ -29,7 +30,3 @@ class Region(db.Model, IdGenerator):
         return Region.query.filter(Region.region_id == id).first()
 
 
-def id_increment():
-    row = db.session.query(Region.region_id).order_by(Region.region_id.desc()).limit(1).one()
-    result = row[0] + 1
-    return result
