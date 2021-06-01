@@ -3,8 +3,10 @@ from model.customers import Customer
 from model.employees import Employee
 from model.order_details import OrderDetail
 from model.orders import Order
+from model.products import Product
 from model.regions import Region, Territory
 from flask import jsonify, request
+from model.suppliers import Supplier
 
 
 def add_region(description):
@@ -34,6 +36,9 @@ def add_territory(region_id):
 
 
 def get_order_details(order_id):
+    order = Order.find_by_id(order_id)
+    if order is None:
+        return {'error': 'id not found'}, 404
     orders = db.session.query(OrderDetail.product_id, OrderDetail.unit_price, OrderDetail.quantity,
                               OrderDetail.discount).join(Order).filter(order_id == Order.order_id).all()
 
@@ -99,5 +104,13 @@ def calculate_revenue_per_year(start_year, end_year):
 
     return jsonify(
         total_revenue=format(query[0], '.2f')
-
     )
+
+
+def calculate_revenue_per_supplier(supplier_id):
+    supplier = Supplier.find_by_id(supplier_id)
+    if supplier is None:
+        return {'error': 'id not found'}, 404
+    query = db.session.query(db.func.sum(Product.units_on_order * Product.unit_price)).join(Supplier).filter(
+        Product.supplier_id == supplier_id).one()
+    return {'total revenue': format(query[0], '.2f')}

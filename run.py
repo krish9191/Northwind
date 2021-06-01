@@ -10,7 +10,7 @@ from resources.shipper_resource import ShipperInfo
 from resources.region_resource import AddRegion
 from resources.territory_resource import AddTerritory
 from resources.order_detail_resource import OrdersDetail
-from resources.revenue_resource import RevenuePerYear
+from resources.revenue_resource import RevenuePerYear, RevenuePerSupplier
 from extension import db
 
 app = Flask(__name__)
@@ -32,6 +32,7 @@ api.add_resource(CustomerAndOrderByEmployeeId, '/customer_and_order_by_employee_
 api.add_resource(CustomerPerCountry, '/customer_per_country')
 api.add_resource(OrdersDetail, '/order_details/<id>')
 api.add_resource(RevenuePerYear, '/revenue_per_year')
+api.add_resource(RevenuePerSupplier, '/revenue_per_supplier/<id>')
 
 
 if __name__ == '__main__':
