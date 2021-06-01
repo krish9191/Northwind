@@ -93,3 +93,11 @@ def count_customer_per_countries():
     return result
 
 
+def calculate_revenue_per_year():
+    query = db.session.query(db.func.sum(OrderDetail.quantity * (OrderDetail.unit_price - OrderDetail.discount * 100)))\
+        .join(Order).filter(Order.order_date.between('1997-01-01', "1998-01-01")).one()
+
+    return jsonify(
+        total_revenue=format(query[0], '.2f')
+
+    )
