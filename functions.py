@@ -8,6 +8,3 @@ def byte_array_to_json(byte_array):
     return new_array
 
 
-def to_year(model_date):
-    year = model_date.strftime('%Y')
-    return year
