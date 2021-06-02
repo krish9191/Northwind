@@ -2,7 +2,7 @@ from flask import Flask
 from flask_restful import Api
 from resources.employee_resource import EmployeeInfo, CustomerAndOrderByEmployeeId
 from resources.customer_resource import CustomerInfo, CustomerPerCountry
-from resources.order_resource import OrderInfo,  OrderByCountry
+from resources.order_resource import OrderInfo,  OrderByCountry, OrderBySpecificCountry
 from resources.product_resource import ProductInfo
 from resources.category_resource import CategoryInfo
 from resources.supplier_resource import SupplierInfo
@@ -27,13 +27,14 @@ api.add_resource(SupplierInfo, '/suppliers/<id>')
 api.add_resource(ShipperInfo, '/shippers/<id>')
 api.add_resource(AddRegion, '/regions')
 api.add_resource(AddTerritory, '/territories/<id>')
-api.add_resource(OrderByCountry, '/order_by_country')
+api.add_resource(OrderByCountry, '/order_by_countries')
 api.add_resource(CustomerAndOrderByEmployeeId, '/customer_and_order_by_employee_id/<id>')
 api.add_resource(CustomerPerCountry, '/customer_per_country')
 api.add_resource(OrdersDetail, '/order_details/<id>')
 api.add_resource(RevenuePerYear, '/revenue_per_year')
 api.add_resource(RevenuePerSupplier, '/revenue_per_supplier/<id>')
 api.add_resource(RevenuePerCategory, '/revenue_per_category/<id>')
+api.add_resource(OrderBySpecificCountry, '/order_by_country')
 
 if __name__ == '__main__':
     db.init_app(app)
