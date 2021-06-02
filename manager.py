@@ -54,13 +54,13 @@ def get_order_details(order_id):
     return result
 
 
-def count_orders_by_country():
+def count_orders_by_countries():
     order = db.session.query(db.func.count(Order.ship_country), Order.ship_country).group_by(
         Order.ship_country).all()
     result = []
     for row in order:
         data = dict()
-        data['count'] = row[0]
+        data['number of order'] = row[0]
         data['country'] = row[1]
         result.append(data)
     return result
@@ -89,7 +89,7 @@ def get_customer_and_order_by_employee_id(employee_id):
 
 
 def count_customer_per_countries():
-    query = db.session.query(db.func.count(Customer.country), Customer.country).group_by(Customer.country).all()
+    query = db.session.query(db.func.count(Customer.country), Customer.country).OrderBySpecificCountry.all()
     result = []
     for row in query:
         data = dict()
@@ -124,3 +124,8 @@ def calculate_revenue_per_category(category_id):
     query = db.session.query(db.func.sum(Product.units_on_order * Product.unit_price)).join(Category).filter(
         Product.category_id == category_id).one()
     return {'total revenue': format(query[0], '.2f')}
+
+
+def count_orders_by_country(country):
+    query = db.session.query(db.func.count(Order.ship_country)).filter(Order.ship_country == country).one()
+    return {'country': country, 'total order': query[0]}
