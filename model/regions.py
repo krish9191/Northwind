@@ -1,0 +1,32 @@
+import uuid
+from extension import db
+from model.id_generator import IdGenerator
+
+
+class Territory(db.Model):
+    __tablename__ = 'territories'
+    territory_id = db.Column(db.String, primary_key=True)
+    territory_description = db.Column(db.String(40), nullable=False)
+    region_id = db.Column(db.SmallInteger, db.ForeignKey('region.region_id'), nullable=False)
+
+    def __init__(self, description):
+        self.territory_id = str(uuid.uuid4())
+        self.territory_description = description
+
+
+class Region(db.Model, IdGenerator):
+    __tablename__ = 'region'
+    region_id = db.Column(db.SmallInteger, primary_key=True)
+    region_description = db.Column(db.String(40), nullable=False)
+    territories = db.relationship(Territory, backref='regions', lazy='select')
+
+    def __init__(self, description):
+        IdGenerator.__init__(self, id="region_id")
+        self.region_id = self.generate_id(Region.region_id)
+        self.region_description = description
+
+    @classmethod
+    def find_by_id(cls, id):
+        return Region.query.filter(Region.region_id == id).first()
+
+
