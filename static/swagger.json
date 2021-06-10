@@ -1,0 +1,249 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Northwind is an e-commerce application",
+    "version": "1.0.0",
+    "title": "Northwind",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "testing@abc.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "127.0.0.1:5000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/categories/{category_id}": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "return category information",
+        "description": " ",
+        "operationId": "getCategoryById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "category_id",
+            "description": "category Id",
+            "type": "integer",
+            "required": true,
+            "default": "1"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "it's ok",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/employees/{employee_id}": {
+      "get": {
+        "tags": [
+          "Employee"
+        ],
+        "summary": "return employee information",
+        "description": "",
+        "operationId": "getEmployeeById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "employee_id",
+            "in": "path",
+            "description": "employee Id",
+            "type": "integer",
+            "required": true,
+            "default": "1"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "it's ok",
+            "schema": {
+              "$ref": "#/definitions/EmployeeInfo"
+            }
+          }
+        }
+      }
+    },
+    "/orders_by_employee/{employee_id}": {
+      "get": {
+        "tags": [
+          "Orders_byEmployee"
+        ],
+        "summary": "return employee, order, and customer information",
+        "description": "gives all the order taken and the customer detail from the specific employee",
+        "operationId": "getOrdersByEmployee",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "employee_id",
+            "in": "path",
+            "description": "employee Id",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "it's ok",
+            "schema": {
+              "$ref": "#/definitions/OrdersByEmployee"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Category": {
+      "type": "object",
+      "required": [
+        "category_id",
+        "category_name"
+      ],
+      "properties": {
+        "category_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "category_name": {
+          "type": "string",
+          "default": "Beverages",
+          "description": "all the beverages item"
+        },
+        "description": {
+          "type": "string"
+        },
+        "picture": {
+          "type": "array",
+          "description": "picture of category"
+        }
+      }
+    },
+    "EmployeeInfo": {
+      "type": "object",
+      "required": [
+        "employee_id",
+        "last_name",
+        "firstname"
+      ],
+      "properties": {
+        "employee_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "title_of_courtesy": {
+          "type": "string"
+        },
+        "birth_date": {
+          "type": "string"
+        },
+        "hire_date": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "postal_code": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "home_phone": {
+          "type": "string"
+        },
+        "extension": {
+          "type": "string"
+        },
+        "photo": {
+          "type": "array"
+        },
+        "reports_to": {
+          "type": "string"
+        },
+        "photo_path": {
+          "type": "string"
+        }
+      }
+    },
+
+      "OrdersByEmployee": {
+        "type": "object",
+        "required": [
+          "employee_id"
+
+        ],
+        "properties": {
+          "employee_id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "last_name": {
+            "type": "string"
+
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "contact_name": {
+            "type": "string"
+
+          },
+           "company_name": {
+            "type": "string"
+
+          },
+          "ship_region": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+
