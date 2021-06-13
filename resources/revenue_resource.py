@@ -6,8 +6,10 @@ from manager import calculate_revenue_per_year, calculate_revenue_per_supplier, 
 
 class RevenuePerYear(Resource):
     def get(self):
-        data = request.get_json()
-        return calculate_revenue_per_year(data['start_year'], data['end_year'])
+        args = request.args
+        start_year = args['start']
+        end_year = args['end']
+        return calculate_revenue_per_year(start_year, end_year)
 
 
 class RevenuePerSupplier(Resource):

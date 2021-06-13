@@ -6,4 +6,4 @@ from manager import add_region
 class AddRegion(Resource):
     def post(self):
         data = request.get_json()
-        return add_region(data["description"])
+        return add_region(data["region_description"])

@@ -1,0 +1,515 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Northwind is an e-commerce application",
+    "version": "1.0.0",
+    "title": "Northwind",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "contact@me.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "127.0.0.1:5000",
+  "basePath": "/",
+  "schemes": [
+    "http",
+    "https"
+  ],
+
+  "paths": {
+    "/categories/{category_id}": {
+      "get": {
+        "tags": [
+          "category"
+        ],
+        "summary": "get information of a category",
+        "operationId": "getCategoryById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "category_id",
+            "description": "id of a category to find ",
+            "type": "integer",
+            "required": true,
+            "default": "1"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "it's ok",
+            "schema": {
+              "type": "array",
+              "items": {
+              "$ref": "#/definitions/Category"
+                }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/employees/{employee_id}": {
+      "get": {
+        "tags": [
+          "employee"
+        ],
+        "summary": "get information of an employee with the given Id",
+        "operationId": "getEmployeeById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "employee_id",
+            "in": "path",
+            "description": "id of an employee to match",
+            "type": "integer",
+            "required": true,
+            "default": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "it's ok",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Employee"
+              }
+            }
+          },
+          "404": {
+            "description": "employee_id not found"
+          }
+        }
+      }
+    },
+    "/employee/{employee_id}/orders": {
+      "get": {
+        "tags": [
+          "ordersByEmployee"
+        ],
+        "summary": "get list of orders taken by an employee ",
+        "operationId": "getOrdersByEmployee",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "employee_id",
+            "in": "path",
+            "description": "id of an employee to be given",
+            "type": "integer",
+            "required": true,
+            "default": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "it's ok",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/OrdersByEmployee"
+              }
+            }
+          },
+          "404": {
+            "description": "employee not exist with such id"
+          }
+        }
+      }
+    },
+    "/orders/country": {
+      "get": {
+        "tags": [
+          "ordersByCountry"
+        ],
+        "summary": "get list of orders which is ordered within given country ",
+        "operationId": "getOrdersByCountry",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "name of the country that to match",
+            "required": true,
+            "default": "France",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "it's ok",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/OrdersByCountry"
+              }
+            }
+          },
+          "404": {
+            "description": "country not found"
+          }
+        }
+      }
+    },
+    "/revenue_per_year": {
+      "get": {
+        "tags": [
+          "revenueByYear"
+        ],
+        "summary": "get revenue between two different years",
+        "operationId": "getRevenue",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "start",
+            "in": "query",
+            "description": " year, from when we want to calculate revenue ",
+            "required": true,
+            "default": "1998",
+            "type": "string"
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "description": "year, until when we want to calculate revenue ",
+            "required": true,
+            "default": "1999",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "it's ok",
+            "schema": {
+              "type": "number"
+            }
+          },
+          "404": {
+            "description": "record not found for such year"
+          }
+        }
+      }
+    },
+    "/supplier/{supplier_id}/revenue": {
+      "get": {
+        "tags": [
+          "revenueBySupplier"
+        ],
+        "summary": "get revenue produced by the supplier  ",
+        "operationId": "getRevenueBySupplier",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "supplier_id",
+            "in": "path",
+            "description": "id of the supplier that we want to calculate revenue ",
+            "required": true,
+            "default": 1,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "it's ok",
+            "schema": {
+              "type": "number",
+              "$ref": "#/definitions/RevenueBySupplier"
+            }
+          },
+          "404": {
+            "description": "supplier_id not found"
+          }
+        }
+      }
+    },
+    "/territories": {
+      "post": {
+        "tags": [
+          "territory"
+        ],
+        "summary": " create a new territory  ",
+        "operationId": "postTerritory",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "the territory to create",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Territory"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "it's ok"
+          },
+          "404": {
+            "description": "region_id not found"
+          }
+        }
+      }
+    },
+    "/regions": {
+      "post": {
+        "tags": [
+          "Regions"
+        ],
+        "summary": " create a new region ",
+        "operationId": "postRegion",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "region_description",
+            "in": "body",
+            "description": "name of the new region",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Region"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "it's ok"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Category": {
+      "type": "object",
+      "required": [
+        "category_id",
+        "category_name"
+      ],
+      "properties": {
+        "category_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "category_name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "picture": {
+          "type": "string"
+        }
+      }
+    },
+    "Employee": {
+      "type": "object",
+      "required": [
+        "employee_id",
+        "last_name",
+        "firstname"
+      ],
+      "properties": {
+        "employee_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "title_of_courtesy": {
+          "type": "string"
+        },
+        "birth_date": {
+          "type": "string"
+        },
+        "hire_date": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "postal_code": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "home_phone": {
+          "type": "string"
+        },
+        "extension": {
+          "type": "string"
+        },
+        "photo": {
+          "type": "string"
+        },
+        "reports_to": {
+          "type": "string"
+        },
+        "photo_path": {
+          "type": "string"
+        }
+      }
+    },
+    "OrdersByEmployee": {
+      "type": "object",
+      "required": [
+        "employee_id"
+      ],
+      "properties": {
+        "employee_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "contact_name": {
+          "type": "string"
+        },
+        "company_name": {
+          "type": "string"
+        },
+        "ship_region": {
+          "type": "string"
+        }
+      }
+    },
+    "OrdersByCountry": {
+      "type": "object",
+      "required": [
+        "country"
+      ],
+      "properties": {
+        "country": {
+          "type": "string"
+        },
+        "ship_city": {
+          "type": "string"
+        },
+        "contact_name": {
+          "type": "string"
+        },
+        "company_name": {
+          "type": "string"
+        }
+      }
+    },
+    "RevenueBySupplier": {
+      "type": "object",
+      "required": [
+        "supplier_id"
+      ],
+      "properties": {
+        "total revenue": {
+          "type": "number"
+        }
+      }
+    },
+    "RevenuesByYear": {
+      "type": "object",
+      "required": [
+        "start_date",
+        "end_date"
+      ],
+      "properties": {
+        "total revenue": {
+          "type": "number"
+        }
+      }
+    },
+    "Territory": {
+      "type": "object",
+      "required": [
+        "territory_description",
+        "region_id"
+      ],
+      "properties": {
+        "territory_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "territory_description": {
+          "type": "string"
+        },
+        "region_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "Region": {
+      "type": "object",
+      "required": [
+        "region_description"
+      ],
+      "properties": {
+        "region_description": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
+
