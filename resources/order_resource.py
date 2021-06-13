@@ -2,7 +2,7 @@ from flask import request
 
 from model.orders import Order
 from flask_restful import Resource
-from manager import count_orders_by_country, count_orders_by_countries
+from manager import count_orders_by_countries, get_orders_by_country
 
 
 class OrderInfo(Resource):
@@ -11,12 +11,12 @@ class OrderInfo(Resource):
         return order.to_json(order.order_id)
 
 
-class OrderByCountry(Resource):
+class OrdersCountByCountry(Resource):
     def get(self):
         return count_orders_by_countries()
 
 
-class OrderBySpecificCountry(Resource):
+class OrdersByCountry(Resource):
     def get(self):
-        data = request.get_json()
-        return count_orders_by_country(data['country'])
+        name = request.args.get('name')
+        return get_orders_by_country(name)

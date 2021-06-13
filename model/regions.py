@@ -1,17 +1,6 @@
-import uuid
 from extension import db
 from model.id_generator import IdGenerator
-
-
-class Territory(db.Model):
-    __tablename__ = 'territories'
-    territory_id = db.Column(db.String, primary_key=True)
-    territory_description = db.Column(db.String(40), nullable=False)
-    region_id = db.Column(db.SmallInteger, db.ForeignKey('region.region_id'), nullable=False)
-
-    def __init__(self, description):
-        self.territory_id = str(uuid.uuid4())
-        self.territory_description = description
+from model.territories import Territory
 
 
 class Region(db.Model, IdGenerator):
@@ -28,5 +17,3 @@ class Region(db.Model, IdGenerator):
     @classmethod
     def find_by_id(cls, id):
         return Region.query.filter(Region.region_id == id).first()
-
-

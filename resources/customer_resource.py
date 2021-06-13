@@ -9,6 +9,6 @@ class CustomerInfo(Resource):
         return customer.to_dict(id)
 
 
-class CustomerPerCountry(Resource):
+class CustomerCountPerCountry(Resource):
     def get(self):
         return count_customer_per_countries()
