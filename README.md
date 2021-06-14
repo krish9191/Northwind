@@ -8,4 +8,4 @@ python run.py
 ### Link to swagger api_specs
 [Northwind](http://127.0.0.1:5000/northwind)
 ### Swagger UI 
-![swagger image](c:/swagger_image/northwind.png)
+![swagger image](northwind.png)
