@@ -1,5 +1,5 @@
 # Northwind
-Northwind is an e-commerce application, right now it only performs basic api calls. This project will be updated as required to perform as an complete e-commerce application in future stay connected. 
+Northwind is an e-commerce application, right now it only performs basic api calls. This project will be updated as required, to perform as a complete e-commerce application in future stay connected. 
 ### To SetUp and Start
 ```
 pip install -r requirements.txt 
