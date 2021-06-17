@@ -5,7 +5,7 @@ class Product(db.Model):
     __tablename__ = 'products'
     product_id = db.Column(db.SmallInteger, primary_key=True)
     product_name = db.Column(db.String(40), nullable=False)
-    supplier_id = db.Column(db.SmallInteger, db.ForeignKey('suppliers.supplier_id'))
+    supplier_id = db.Column(db.SmallInteger, db.ForeignKey('suppliers.supplier_id'), nullable=False)
     category_id = db.Column(db.SmallInteger, db.ForeignKey('categories.category_id'))
     quantity_per_unit = db.Column(db.String(20))
     unit_price = db.Column(db.Float(15))
