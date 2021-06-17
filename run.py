@@ -2,8 +2,7 @@ from flasgger import Swagger
 from flask import Flask
 from flask_restful import Api
 
-
-from resources.employee_resource import EmployeeInfo,  OrdersByEmployee
+from resources.employee_resource import EmployeeInfo, OrdersByEmployee
 from resources.customer_resource import CustomerInfo, CustomerCountPerCountry
 from resources.order_resource import OrderInfo, OrdersByCountry, OrdersCountByCountry
 from resources.product_resource import ProductInfo
@@ -15,10 +14,15 @@ from resources.territory_resource import AddTerritory
 from resources.order_detail_resource import OrdersDetail
 from resources.revenue_resource import RevenuePerYear, RevenuePerSupplier, RevenuePerCategory
 from extension import db
+import os
+from dotenv import load_dotenv
 
+load_dotenv(".env")
+password = os.environ.get("PASSWORD")
+host = os.environ.get("HOST")
+database = os.environ.get("DATABASE")
 
 app = Flask(__name__)
-
 
 app.config['SWAGGER'] = {
     'title': 'Northwind',
@@ -28,8 +32,14 @@ app.config['SWAGGER'] = {
 swagger = Swagger(app, template_file='static/swagger.json', parse=True)
 
 api = Api(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1234@localhost/northwind'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://postgres:{password}@{host}/{database}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+
+@app.before_first_request
+def create_tables():
+    db.create_all()
+
 
 api.add_resource(EmployeeInfo, '/employees/<id>')
 api.add_resource(CustomerInfo, '/customers/<id>')

@@ -7,8 +7,8 @@ from model.order_details import OrderDetail
 class Order(db.Model):
     __tablename__ = 'orders'
     order_id = db.Column(db.SmallInteger, primary_key=True)
-    customer_id = db.Column(db.String, db.ForeignKey('customers.customer_id'))
-    employee_id = db.Column(db.SmallInteger, db.ForeignKey('employees.employee_id'))
+    customer_id = db.Column(db.String, db.ForeignKey('customers.customer_id'), nullable=False)
+    employee_id = db.Column(db.SmallInteger, db.ForeignKey('employees.employee_id'), nullable=False)
     order_date = db.Column(db.Date)
     required_date = db.Column(db.Date)
     shipped_date = db.Column(db.Date)
