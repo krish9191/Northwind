@@ -5,7 +5,7 @@ Northwind is an e-commerce application, right now it only performs basic api cal
 pip install -r requirements.txt 
 python run.py
  ```
-### Link to swagger api_specs
-[Northwind](http://127.0.0.1:5000/northwind)
+### Localhost URL
+http://127.0.0.1:5000/northwind
 ### Swagger UI 
 ![swagger image](northwind.png)
