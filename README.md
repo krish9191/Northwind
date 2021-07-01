@@ -9,3 +9,9 @@ python run.py
 http://127.0.0.1:5000/northwind
 ### Swagger UI 
 ![swagger image](northwind.png)
+<div style='float: center'>
+  <img style='width: 600px' src="request.png"></img>
+</div>
+<div style='float: center'>
+  <img style='width: 600px' src="response.png"></img>
+</div>
