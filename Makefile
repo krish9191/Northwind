@@ -1,2 +1,3 @@
 install:
-  pip install -r requirements.text
+	pip install --upgrade pip &&\
+		pip install -r requirements.text
