@@ -22,7 +22,6 @@ pyrsistent==0.17.3
 python-dotenv==0.17.1
 pytz==2021.1
 PyYAML==5.4.1
-requests==2.25.1
 six==1.15.0
 SQLAlchemy==1.4.11
 urllib3==1.26.5
